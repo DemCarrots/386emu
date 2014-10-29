@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <vector>
 #include <string>
-#include <functional>
 
 typedef uint8_t u8;
 typedef int8_t s8;

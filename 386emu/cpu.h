@@ -28,18 +28,43 @@ namespace CPU
 		u16 limit;
 	};
 
-	reg32 ax, bx, cx, dx, si, di, bp, sp;
-	sreg cs, ds, es, ss, fs, gs;
-	u32 eip;
-	u32 flags;
-	systbl gdtr, idtr;
-	sreg ldtr, tr;
+	extern reg32 ax, bx, cx, dx, si, di, bp, sp;
+	extern sreg cs, ds, es, ss, fs, gs;
+	extern u32 eip;
+	extern u32 flags;
+	extern systbl gdtr, idtr;
+	extern sreg ldtr, tr;
 
-	u8 cpl; //Only 2 bits.
+	extern bool irq;
+	extern u8 irqnum;
 
-	u32 cr[5];
-	u32 dr[8];
-	u32 tr[2];
+	extern bool halted; //Once HLT has been executed, only check for interrupts.
+
+	extern u8 cpl; //Only 2 bits.
+
+	extern u32 cr[5];
+	extern u32 dr[8];
+	extern u32 testr[2];
+
+	enum segs
+	{
+		CS,DS,ES,SS,FS,GS,DEFAULT
+	};
+
+	extern int seg;
+
+	enum reps
+	{
+		REP_EQ, REP_NE, NONE
+	};
+
+	extern int rep;
+
+	void init();
+	void tick();
+	u8 rb(u16 seg, u32 addr);
+	void wb(u16 seg, u32 addr, u8 data);
+	void interrupt(u8 intr);
 }
 
 #endif
